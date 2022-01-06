@@ -3,6 +3,11 @@ import Login from "@/views/login/Login.vue";
 
 const routes = [
 	{
+		//重定向
+		path: '/',
+		redirect: '/login',
+	},
+	{
 		path: '/login' ,
 	component: Login/* () => import("@/views/login/Login.vue") */,
   },

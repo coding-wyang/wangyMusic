@@ -1,14 +1,11 @@
 <template>
-	home
+	<div class='discovery-header'>
+		
+	</div>
 </template>
 
 <script>
-
 export default {
-	name:'home',
-	data() {
-		return {
-		}
-	},
+	
 }
 </script>
