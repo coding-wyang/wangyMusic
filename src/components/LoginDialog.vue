@@ -64,7 +64,7 @@ export default {
 					if (res.code !== 200){
 						ElMessage.error('登录失败')
 					}else {
-						this.$router.push('home')
+						this.$router.push('discovery')
 					}
         }).catch((error) => {
 					console.log(error);

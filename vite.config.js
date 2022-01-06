@@ -17,8 +17,10 @@ export default({
 		}),
 	],
 	resolve:{
+		extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
 		alias:{
 			'@': resolve(__dirname,'src'),
-		}
+			'utils': resolve(__dirname,'src/utils'),
+		},
 	},
 })

@@ -12,4 +12,11 @@
 export default {
   name: 'App',
 }
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
 </style>

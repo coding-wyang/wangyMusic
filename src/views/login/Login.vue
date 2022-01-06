@@ -45,29 +45,32 @@ export default {
 </script>
 
 <style scoped>
+
+
 .contain{
 	width: 375px;
 	height: 812px;
 	overflow: hidden;
-	margin-top: -2px;
+	margin: 0px;
+	padding: 0px;
 	background: rgb(177, 31, 14);
 }
-.buttonCon{
+/* .buttonCon{
 	position: fixed; 
 	left: 14%;
 	bottom: 50%;
-}
+} */
 .button{
 		width:280px;
 		height:40px;
-		line-height: 200rpx;
+		line-height: 30rpx;
 		text-align: center;
 		border-radius: 63px;
 		border: 1px solid;
 		color: #c2463a;
 		display: block;
 		text-decoration: none;
-		margin: 0 auto;
+		margin: 200px auto;
 	}
 .logo{
 	height: 80px;
