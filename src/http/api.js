@@ -5,3 +5,9 @@ export const loginGet = (data) => {
     data: data,
   });
 };
+
+export const songListGet = (data) => {
+  return http.get("/homepage/block/page", {
+    data: data,
+  });
+};

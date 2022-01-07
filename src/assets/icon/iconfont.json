@@ -1,0 +1,44 @@
+{
+  "id": "3122533",
+  "name": "wangymusic",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "21061550",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "f470",
+      "unicode_decimal": 62576
+    },
+    {
+      "icon_id": "629357",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "1168206",
+      "name": "个人信息",
+      "font_class": "gerenxinxi",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "5269216",
+      "name": "导出",
+      "font_class": "daochu",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "18939005",
+      "name": "听歌识曲",
+      "font_class": "tinggeshiqu",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    }
+  ]
+}

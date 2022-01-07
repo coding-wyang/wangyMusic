@@ -1,6 +1,7 @@
 <template>
   <el-dialog 
     title="登录"
+		custom-class="dialog"
     v-model="dialogFlag"
     :close-on-click-model="false"
     :before-close="loginDiaClose"
@@ -16,7 +17,7 @@
         <el-input v-model="loginForm.userPassword"></el-input>
       </el-form-item>
     </el-form>
-    <el-button type="primary" class="buttonDia" @click="userInfGet()"
+    <el-button type="danger" class="buttonDia" @click="userInfGet()"
       >确认</el-button>
 			<el-button class="buttonReset" @click="resetForm()">重置</el-button>
   </el-dialog>
@@ -33,8 +34,8 @@ export default {
   data() {
     return {
       loginForm: {
-        userName: "",
-        userPassword: "",
+        userName: "15877532644",
+        userPassword: "sB250...",
       },
 			loginFormRules:{
             //用户名和密码表单验证
@@ -63,8 +64,7 @@ export default {
 					if (res.code !== 200){
 						ElMessage.error('登录失败')
 					}else {
-						ElMessage.success('登录成功')
-						console.log(this);
+						this.$router.push('discovery')
 					}
         }).catch((error) => {
 					console.log(error);
@@ -76,5 +76,17 @@ export default {
 
 <style>
 .buttonDia {
+}
+.dialog{
+		line-height: 30rpx;
+		position:relative;
+		width:330px;
+		height:30rpx;
+		text-align: center;
+		border-radius: 70px;
+		border: 1px solid;
+		background: rgb(211, 45, 27);
+		border-color: rgb(211, 45, 27);
+		margin: 200px auto;
 }
 </style>
