@@ -15,7 +15,7 @@
 				</div>
         <!--三个点-->
         <div class="line-icon">
-          <i class="iconfont  icon-bofang"></i>
+          <i class="iconfont  icon-bofang"/>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@ export default {
 	data() {
 		return {
 			title: "",
-			Array: [],
+			saveArray: [],
 			listArray:[],
 			songList: [],
 			saveArtist: [],
@@ -44,30 +44,30 @@ export default {
 		async getSongList(){
 			const {data:res} = await songListGet();
 			this.title = res.blocks[2].uiElement.subTitle 
-			this.Array = [...res.blocks[2].creatives];
-			for (let value of this.Array) {
-				this.Array= [...value.resources]
-				for (let value of this.Array){
+			this.saveArray = [...res.blocks[2].creatives];
+			this.saveArray.forEach(element => {
+				this.saveArray = [...element.resources]
+				for (let value of this.saveArray){
 					let name = value.resourceExtInfo.song.name;
 					let artists = value.resourceExtInfo.artists;
 					this.saveArtist.push(artists);
 					this.songList.push(name);
 				}
-			}
+			});
 			/* 拼接多个歌手情况下的字符 */
-			for (let index = 0; index < this.saveArtist.length; index++) {
-				this.Array = this.saveArtist[index];
+			this.saveArtist.forEach((element) => {
+				this.saveArray = element;
 				var sum ='';
-				for (let flag = 0; flag < this.Array.length; flag++) {
+				element.forEach((element,flag) => {
 					if ( flag === 0) {
-						sum = `${this.Array[flag].name}`
+						sum = `${element.name}`
 					} else {
-						sum = `${sum}/${this.Array[flag].name}`
+						sum = `${sum}/${element.name}`
 					}
-				}
+				})
 				this.artistsList.push(sum);
 				sum='';
-			}
+			})
 	},
 }}
 </script>

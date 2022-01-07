@@ -1,16 +1,16 @@
 <template>
 	<div class='discovery-header'>
 		<div class='drawer'>
-			<i class="iconfont  icon-gerenxinxi"></i>
+			<i class="iconfont  icon-gerenxinxi"/>
 		</div>
 		<div class="search" >
       <input type="text" :placeholder="placeholder" />
       <div class="head-search">
-				<i class="iconfont  icon-sousuo"></i>
+				<i class="iconfont  icon-sousuo"/>
       </div>
     </div>
 		<div class="listen-to-know">
-			<i class="iconfont  icon-tinggeshiqu"></i>
+			<i class="iconfont  icon-tinggeshiqu"/>
 		</div>
 	</div>
 </template>
