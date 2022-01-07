@@ -9,6 +9,10 @@
         <div class="line-song">
           <span>{{item}}</span>
         </div>
+				<!-- 歌手 -->
+				<div class="line-artists">
+					<span>{{artistsList[index]}}</span>
+				</div>
         <!--三个点-->
         <div class="line-icon">
           <i class="iconfont  icon-bofang"></i>
@@ -28,31 +32,42 @@ export default {
 			Array: [],
 			listArray:[],
 			songList: [],
-			artistList: [],
+			saveArtist: [],
+			artistsList: [],
 		}
 	},
 	created() {
 		this.getSongList();
 	},
 	methods: {
+		/* 获取精选歌曲数据 */
 		async getSongList(){
 			const {data:res} = await songListGet();
-			console.log(res);
 			this.title = res.blocks[2].uiElement.subTitle 
 			this.Array = [...res.blocks[2].creatives];
-			console.log(this.Array);
 			for (let value of this.Array) {
 				this.Array= [...value.resources]
 				for (let value of this.Array){
-					console.log(value);
 					let name = value.resourceExtInfo.song.name;
 					let artists = value.resourceExtInfo.artists;
-					this.artistList.push(artists);
+					this.saveArtist.push(artists);
 					this.songList.push(name);
 				}
 			}
-			console.log('this.songList:::', this.songList);
-			console.log('this.artisitList::', this.artistList);
+			/* 拼接多个歌手情况下的字符 */
+			for (let index = 0; index < this.saveArtist.length; index++) {
+				this.Array = this.saveArtist[index];
+				var sum ='';
+				for (let flag = 0; flag < this.Array.length; flag++) {
+					if ( flag === 0) {
+						sum = `${this.Array[flag].name}`
+					} else {
+						sum = `${sum}/${this.Array[flag].name}`
+					}
+				}
+				this.artistsList.push(sum);
+				sum='';
+			}
 	},
 }}
 </script>
@@ -84,11 +99,24 @@ export default {
 .line-icon >i{
 	font-size: 1.5em;
 }
+.line-artists{
+	width: 30%;
+	font-family: sans-serif;
+	display: flex;
+  flex-direction: column;
+	justify-content: center;
+	padding-left: 20px;
+  display: flex;
+	font-size: 0.5em;
+	word-break:keep-all;
+	white-space:nowrap;/* 让文字再一行显示 */
+}
 .line-song{
+
 	width: 80%;
   height: 50px;
-  overflow: hidden;
-  font-size: 1em;
+  overflow: hidden;/* 多余隐藏 */
+	font-size: 0.8em;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
