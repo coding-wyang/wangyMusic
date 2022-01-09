@@ -11,3 +11,9 @@ export const songListGet = (data) => {
     data: data,
   });
 };
+
+export const lyricGet = (data) => {
+  return http.get("/lyric", {
+    data: data,
+  });
+};
