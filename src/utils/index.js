@@ -1,3 +1,5 @@
-import deepCopy from "./deepCopy";
+import deepCopy from "./deepCopy.js";
+import sessionSave from "./sessionSave.js";
 
-export default {deepCopy};
+
+export default {deepCopy, sessionSave};

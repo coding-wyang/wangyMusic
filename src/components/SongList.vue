@@ -4,6 +4,7 @@
         class="song-item"
         v-for="(item,index) in songList"
         :key="index"
+				@click="toPlay(item,artistsList[index],idList[index])"
       >
         <!--歌曲-->
         <div class="line-song">
@@ -34,6 +35,7 @@ export default {
 			songList: [],
 			saveArtist: [],
 			artistsList: [],
+			idList: [],
 		}
 	},
 	created() {
@@ -50,8 +52,10 @@ export default {
 				for (let value of this.saveArray){
 					let name = value.resourceExtInfo.song.name;
 					let artists = value.resourceExtInfo.artists;
+					let id = value.resourceId;
 					this.saveArtist.push(artists);
 					this.songList.push(name);
+					this.idList.push(id);
 				}
 			});
 			/* 拼接多个歌手情况下的字符 */
@@ -68,7 +72,13 @@ export default {
 				this.artistsList.push(sum);
 				sum='';
 			})
-	},
+			},
+			toPlay(songName, songArtist, id) {
+				this.$router.push('audio');
+				this.$store.commit("setSongName", songName);
+				this.$store.commit("setSongArtist", songArtist);
+				this.$store.commit("setSongId", id);
+			}
 }}
 </script>
 
@@ -107,6 +117,7 @@ export default {
 	justify-content: center;
 	padding-left: 20px;
   display: flex;
+	overflow: hidden;
 	font-size: 0.5em;
 	word-break:keep-all;
 	white-space:nowrap;/* 让文字再一行显示 */

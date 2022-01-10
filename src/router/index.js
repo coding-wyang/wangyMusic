@@ -14,6 +14,10 @@ const routes = [
 	{
 		path:'/discovery',
 		component: () => import("@/views/home/Discovery.vue"),
+	},
+	{
+		path:'/audio',
+		component: () => import("@/views/audio/Audio.vue"),
 	}
 ]
 

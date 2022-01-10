@@ -39,7 +39,6 @@ export default {
       },
 			loginFormRules:{
             //用户名和密码表单验证
-          
           userName:[ 
             { required: true, message: '请输入账号', trigger: 'blur' },
           ],
@@ -75,7 +74,7 @@ export default {
 </script>
 
 <style>
-.buttonDia {
+.buttonDia{
 }
 .dialog{
 		line-height: 30rpx;

@@ -16,8 +16,8 @@
 </template>
 
 <script>
-name:'discovery-header'
 export default {
+	name:'discovery-header',
 	data() {
 		return {
 			placeholder: '搜索音乐、歌手',
@@ -32,7 +32,6 @@ export default {
 	position:absolute;
 	top: 12px;
 	left: 15px;
-	
 }
 .drawer > i{
 	font-size: 23px;
