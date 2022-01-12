@@ -6,15 +6,18 @@
     :close-on-click-model="false"
     :before-close="loginDiaClose"
     :destroy-on-close="true"
-    width="90%"
+    width="100%"
   >
     <!-- 登录表单区域 -->
     <el-form :model="loginForm" status-icon :rules="loginFormRules" ref="loginFormRef" >
-      <el-form-item label="账号" prop="userName" label-width="60px">
+      <el-form-item label="账号" prop="userName" label-width="60px" class="username">
         <el-input v-model="loginForm.userName"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="userPassword" label-width="60px">
-        <el-input v-model="loginForm.userPassword"></el-input>
+      <el-form-item label="密码" prop="userPassword" label-width="60px" class="password">
+        <el-input v-model="loginForm.userPassword" :type="pwdType" ></el-input>
+				<div class="active-eye" @click="changeType()">
+					<i :class="src"/>
+				</div>
       </el-form-item>
     </el-form>
     <el-button type="danger" class="buttonDia" @click="userInfGet()"
@@ -33,6 +36,8 @@ export default {
   emits: ["closeDia"],
   data() {
     return {
+				pwdType:"password",
+				src:"iconfont  icon-yincang",
       loginForm: {
         userName: "15877532644",
         userPassword: "sB250...",
@@ -49,7 +54,19 @@ export default {
         }
     };
   },
+	watch:{
+		pwdType(val){
+			if (val === 'password') {
+				this.src = "iconfont  icon-yincang"
+			} else if(val === 'text') {
+				this.src = 'iconfont icon-xianshi'
+			}
+		}
+	},
   methods: {
+		changeType(){
+			this.pwdType = this.pwdType==='password'?'text':'password';
+			},
     loginDiaClose() {
       this.$emit("closeDia");
 			this.$refs.loginFormRef.resetFields();//重置表单数据
@@ -58,15 +75,17 @@ export default {
 			this.$refs.loginFormRef.resetFields();
 		},
     userInfGet() {
+			/* 用户信息获取 */
         loginGet({ phone: this.loginForm.userName, password: this.loginForm.userPassword }).then((res) => {
           console.log(res);
 					if (res.code !== 200){
 						ElMessage.error('登录失败')
 					}else {
 						this.$router.push('discovery')
+						this.$store.commit("setIsShowFooter","true")
 					}
         }).catch((error) => {
-					console.log(error);
+					console.error(error);
 				});
     },
   },
@@ -74,18 +93,22 @@ export default {
 </script>
 
 <style>
-.buttonDia{
-}
 .dialog{
-		line-height: 30rpx;
-		position:relative;
-		width:330px;
-		height:30rpx;
+		/* line-height: 30rpx; */
+		position: fixed;
+		top: -200px;
+		width: 100%;
+		height: 100%;
 		text-align: center;
-		border-radius: 70px;
-		border: 1px solid;
 		background: rgb(211, 45, 27);
-		border-color: rgb(211, 45, 27);
 		margin: 200px auto;
+}
+.password{
+	position: relative;
+}
+.active-eye{
+	position: relative;
+	left: 83%;
+	bottom: 32px;
 }
 </style>

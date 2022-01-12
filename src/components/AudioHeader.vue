@@ -1,6 +1,6 @@
 <template>
 		<!-- 播放器header -->
-		<div class="audio-header">
+		<div class="audio-header" @click="backToDiscovery">
 			<!-- 返回 -->
 			<div class="audio-back">
 				<i class="iconfont  icon-fanhui4"/>
@@ -22,6 +22,7 @@
 import U from "../utils/index.js"
 export default {
 	name:"audio-header",
+	emits:['closeAudio'],
 	data() {
 		return {
 			songName:'',
@@ -29,7 +30,7 @@ export default {
 		}
 	},
 	created() {
-		console.log(U);
+		//会话存储
 		U.sessionSave(this.$store);
   },
 	computed:{
@@ -40,13 +41,13 @@ export default {
 			return this.$store.state.playing.songArtist;
 		}
 	},
-	watch:{
-		songName(val){
-			console.log(1);
-			console.log(val);
-		}
-	},
 	methods:{
+		backToDiscovery() {
+			this.$router.go(-1);
+			/* this.$emit('closeAudio') */
+			this.$store.commit("setIsShowAudio",true)
+			this.$store.commit("setIsShowFooter",true)
+		}
 	}
 }
 </script>

@@ -12,6 +12,7 @@
 import DiscoveryHeader from "@/components/DiscoveryHeader.vue";
 import SongList from "@/components/SongList.vue";
 
+
 export default {
 	name:'Discovery',
 	components:{

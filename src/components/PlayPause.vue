@@ -15,22 +15,13 @@
 	</div>
 	<div class='audio-contain'>
 		<!-- 音频播放控件 -->
-		<audio ref = "audio"
-		class="audio"
-		@pause="onPause"
-		@play="onPlay"
-		controls="controls"
-		@timeupdate="onTimeupdate" 
-    @loadedmetadata="onLoadedmetadata"
-		v-show="false"
-		src=""></audio>
 		<div class="method">
 			<i class="iconfont  icon-24gl-repeatOnce2"/>
 		</div>
 		<div class="prev">
 			<i class="iconfont  icon-047caozuo_shangyishou"/>
 		</div>
-		<div class="play-pause" @click="startPlayOrPause">
+		<div class="play-pause" @click="startPlayPause">
 			<i :class="playIcon"/>
 		</div>
 		<div class="next">
@@ -44,84 +35,72 @@
 </template>
 
 <script>
+import U from '../utils/index.js'
 export default {
 	name: 'playpause',
 	data() {
 		return {
-			isPlaying: false,
-			playIcon: 'iconfont  icon-bofang1',
-			songId: '',
-			// 音频当前播放时长
-			currentTime: 0,
+			playIcon: 'iconfont  icon-zanting',
+			songUrl: '',
 			// 音频两端时长
 			nowTime: "0:00:00",
 			finalTime: "0:00:00",
-			/* 歌曲长度 */
-			maxTime: 0,
 			/* 进度条长度 */
 			progressLength: 0,
 			/* 进度条位置 */
 			curLength: 0,
+			isPlaying: true,
+			timeSave: 0,
+			/* maxTime: 0, */
 			}
 	},
 	computed:{
-		songId() {
-			return this.$store.state.playing.songId;
-		}
+		maxTime() {
+			return  this.$store.state.playing.maxTime
+		},
+		currentTime(){
+				return this.$store.state.playing.currentTime
+		},
 	},
 	watch: {
 		isPlaying(val) {
+			/* 控制播放暂停icon切换 */
 			if (val) {
-				this.playIcon = "iconfont  icon-zanting"
+				this.playIcon = "iconfont  icon-zanting";
 			} else {
 				this.playIcon = 'iconfont  icon-bofang1'
 			};
 		},
-		currentTime() {
+		currentTime: {
+			/* 监测播放器进度 */
+			deep:true,
+			handler(val) {
 			this.nowTime = this.formatSeconds(this.currentTime);
 			this.finalTime = this.formatSeconds(this.maxTime);
 			this.$store.commit("setNowTime",this.currentTime);
 			this.curLength = (this.currentTime / this.maxTime) * 100;
-		}
+			}
+		},
+		maxTime(val) {
+			this.finalTime = this.formatSeconds(val);
+		},
 	},
 	mounted() {
+		/* 拼接mp3链接进度 */
 		const res = this.$store.state.playing.songId;
-		this.songId = `https://music.163.com/song/media/outer/url?id=${res}.mp3`;
-		this.$refs.audio.src = this.songId;
+		this.songUrl = `https://music.163.com/song/media/outer/url?id=${res}.mp3`;
+		this.$store.commit("setSongUrl", this.songUrl)
 		/* 进度条长度 */
 		this.progressLength = this.$refs.line.getBoundingClientRect().width;
-		/* 最大时间 */
+		this.updateStuff();
+		U.sessionSave(this.$store);
 	},
+
 	methods: {
     // 控制音频的播放与暂停
-    startPlayOrPause () {
-      return this.isPlaying ? this.pause() : this.play()
-			
-    },
-    // 播放音频
-    play () {
-      this.$refs.audio.play()
-    },
-    // 暂停音频
-    pause () {
-      this.$refs.audio.pause()
-    },
-    // 当音频播放
-    onPlay () {
-      this.isPlaying = true
-    },
-    // 当音频暂停
-    onPause () {
-      this.isPlaying = false
-    },
-		// 当timeupdate事件大概每秒一次，用来更新音频流的当前播放时间
-    onTimeupdate(res) {
-      this.currentTime = res.target.currentTime
-    },
-    // 当加载语音流元数据完成后，会触发该事件的回调函数
-    // 语音元数据主要是语音的长度之类的数据
-    onLoadedmetadata(res) {
-      this.maxTime = parseInt(res.target.duration)
+    startPlayPause () {
+			this.isPlaying =!this.isPlaying;
+			this.$store.commit("setIsPlaying",this.isPlaying);
     },
 		formatSeconds(time) {
 			if (time !== undefined) {
@@ -135,6 +114,12 @@ export default {
 			} else {
 				return '0:00:00'
 				};
+		},
+		updateStuff(){
+			this.isPlaying = this.$store.getters.isPlaying;
+			this.timeSave = this.$store.getters.currentTime;
+			this.$store.commit("setCurrentTime",0);
+			this.$store.commit("setCurrentTime",this.timeSave);
 		}
   },
 }

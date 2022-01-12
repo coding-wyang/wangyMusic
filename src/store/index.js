@@ -7,10 +7,24 @@ const store = new Vuex.Store({
 			songName: '', //歌曲
 			songArtist: '', //歌手
 			songLyric: '', //歌词
+			playIcon:'',//播放切换
+			isShowAudio: '',
+			isShowFooter: '',
+			songUrl: '',
+			maxTime: '',
+			currentTime: 0,
+			isPlaying: '',
 			nowTime: '',
 		}
 	},
 	getters: {
+		isShowFooter: state => state.playing.isShowFooter,
+		isPlaying: state => state.playing.isPlaying,
+		currentTime: state => state.playing.currentTime,
+		maxTime: state => state.playing.maxTime,
+		songUrl: state => state.playing.songUrl,
+		isShowAudio: state => state.playing.isShowAudio,
+		playIcon: state => state.playing.playIcon,
 		nowTime: state => state.playing.nowTime,
 		songLyric: state => state.playing.songLyric,
 		songId: state => state.playing.id,
@@ -19,6 +33,13 @@ const store = new Vuex.Store({
 		songArtist: state => state.playing.songArtist,
 	},
 	mutations: {
+		setIsShowFooter: ( state, isShowFooter ) => { state.playing.isShowFooter = isShowFooter},
+		setIsPlaying: ( state, isPlaying ) => { state.playing.isPlaying = isPlaying},
+		setCurrentTime: ( state, currentTime ) => { state.playing.currentTime = currentTime},
+		setMaxTime: ( state, maxTime ) => { state.playing.maxTime = maxTime},
+		setSongUrl: ( state, songUrl ) => { state.playing.songUrl = songUrl},
+		setIsShowAudio: ( state, isShowAudio ) => { state.playing.isShowAudio = isShowAudio },
+		setPlayIcon: ( state, playIcon ) => { state.playing.playIcon = playIcon },
 		setNowTime: ( state, nowTime) => { state.playing.nowTime = nowTime },
 		setSongLyric: ( state, songLyric) => { state.playing.songLyric = songLyric },
 		setSongId: ( state, songId ) => { state.playing.songId = songId },

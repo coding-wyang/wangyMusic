@@ -40,8 +40,8 @@ export default {
 
 
 .contain{
-	width: 375px;
-	height: 812px;
+	width: 100%;
+	height: 900px;
 	overflow: hidden;
 	margin: 0px;
 	padding: 0px;
