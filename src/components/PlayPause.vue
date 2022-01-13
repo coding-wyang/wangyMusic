@@ -102,6 +102,7 @@ export default {
 			this.isPlaying =!this.isPlaying;
 			this.$store.commit("setIsPlaying",this.isPlaying);
     },
+		/* 将时间解析为时分秒 */
 		formatSeconds(time) {
 			if (time !== undefined) {
 			time = parseInt(time);
@@ -109,12 +110,12 @@ export default {
 			time = time - hours * 3600;
 			let minute = Math.floor(time / 60);
 			time = time - minute * 60;
-			
 			return hours + ':' + ('0' + minute).slice(-2) + ':' + ('0' + time).slice(-2)
 			} else {
 				return '0:00:00'
 				};
 		},
+		/* 二次进入页面更新 */
 		updateStuff(){
 			this.isPlaying = this.$store.getters.isPlaying;
 			this.timeSave = this.$store.getters.currentTime;

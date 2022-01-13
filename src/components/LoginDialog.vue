@@ -64,6 +64,7 @@ export default {
 		}
 	},
   methods: {
+		/* 控制密码显示隐藏 */
 		changeType(){
 			this.pwdType = this.pwdType==='password'?'text':'password';
 			},
@@ -78,21 +79,41 @@ export default {
 			/* 用户信息获取 */
         loginGet({ phone: this.loginForm.userName, password: this.loginForm.userPassword }).then((res) => {
           console.log(res);
-					if (res.code !== 200){
-						ElMessage.error('登录失败')
-					}else {
+					if (res.code === 200){
 						this.$router.push('discovery')
 						this.$store.commit("setIsShowFooter","true")
+					}else {
+							ElMessage.error({
+							message: "登录失败",
+							duration: 0,
+							offset: 10,
+						})
 					}
         }).catch((error) => {
-					console.error(error);
-				});
+						}
+				);
     },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
+.el-message{
+	position: absolute;
+	padding-inline-start: 50px;
+	background: white;
+}
+.el-message__icon{
+	background: #ffff;
+}
+.el-message__content {
+	font-weight: 600;
+	position: absolute;
+	left: 40%;
+}
+.el-icon .icon{
+	visibility: hidden;
+} 
 .dialog{
 		/* line-height: 30rpx; */
 		position: fixed;
@@ -100,7 +121,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		text-align: center;
-		background: rgb(211, 45, 27);
+		background: rgb(253, 253, 253);
 		margin: 200px auto;
 }
 .password{
