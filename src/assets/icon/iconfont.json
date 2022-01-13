@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1002517",
+      "name": "隐藏",
+      "font_class": "yincang",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "26635366",
+      "name": "显示",
+      "font_class": "xianshi",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "1526260",
+      "name": "发现",
+      "font_class": "discover",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
       "icon_id": "36115",
       "name": "wifi",
       "font_class": "wifi",

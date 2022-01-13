@@ -78,6 +78,10 @@ export default {
 				this.$store.commit("setSongName", songName);
 				this.$store.commit("setSongArtist", songArtist);
 				this.$store.commit("setSongId", id);
+				this.$store.commit("setIsPlaying", true);
+				/* this.$store.commit("setIsShowAudio","false") */
+				this.$store.commit("setIsShowFooter",false);
+				this.$store.commit("setIsShowAudio",false);
 			}
 }}
 </script>

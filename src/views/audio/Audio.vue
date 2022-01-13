@@ -1,7 +1,7 @@
 <template>
-	<div class="audio">
+	<div class="audio" v-show="isShowAudio">
 		<!-- 播放器头 -->
-		<audio-header ></audio-header>
+		<audio-header @closeAudio="closeAudio"></audio-header>
 		<!-- 歌词界面 -->
 		<audio-lyric ></audio-lyric>
 		<!-- 暂停播放 -->
@@ -20,10 +20,13 @@ export default {
   components: { AudioHeader, PlayPause, AudioLyric },
 	data() {
 		return {
-			
+			isShowAudio: true,
 		}
 	},
-}
+	created() {
+	},
+	methods:{
+}}
 </script>
 
 <style scoped>

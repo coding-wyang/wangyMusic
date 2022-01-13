@@ -16,6 +16,12 @@ export default({
 			resolvers:[ElementPlusResolver()],
 		}),
 	],
+	server: {
+    host: '192.168.1.200',
+    port: 8991,
+    // 是否开启 https
+    https: false,
+  },
 	resolve:{
 		extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
 		alias:{

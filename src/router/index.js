@@ -9,15 +9,24 @@ const routes = [
 	},
 	{
 		path: '/login' ,
-	component: Login/* () => import("@/views/login/Login.vue") */,
+		component: Login/* () => import("@/views/login/Login.vue") */,
+		meta:{
+			keepAlive: true,
+		}
   },
 	{
 		path:'/discovery',
 		component: () => import("@/views/home/Discovery.vue"),
+		meta:{
+			keepAlive: true,
+		}
 	},
 	{
 		path:'/audio',
 		component: () => import("@/views/audio/Audio.vue"),
+		meta:{
+			keepAlive: true,
+		}
 	}
 ]
 

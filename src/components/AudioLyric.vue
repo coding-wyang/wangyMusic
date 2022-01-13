@@ -36,12 +36,15 @@ export default {
 	this.songId = this.$store.state.playing.songId;
 	this.getLyric();
 	U.sessionSave(this.$store);
+
 	},
 	watch:{
+		//监听音乐播放进度 控制歌词播放速度 滚动效果
 		nowTime(){
 			this.lrc.forEach((element,index) => {
 				if (this.nowTime >=element[0]) {
 					this.lrc.forEach((element,index) => {
+						//查询所有选择器
 						document.querySelectorAll('.lrc li')[index].style.color = 'rgba(165,165,165,0.7)'
 					});
 					if (index >= 0) {
@@ -52,8 +55,8 @@ export default {
 	},
 	methods: {
 	async getLyric(){
+		/* 获取歌词 */
 		const {lrc:res} = await lyricGet({id:this.songId});
-		console.log(res);
 		let lyc = this.parseLyric(res.lyric);
 		this.$store.commit("setSongLyric", lyc)
 	},
