@@ -40,6 +40,7 @@ export default {
 	},
 	watch:{
 		isPlaying(val) {
+			/* 控制图标 */
 			if (val) {
 					this.playIcon = "iconfont  icon-zanting";
 			}else {
@@ -49,9 +50,11 @@ export default {
 	},
 	methods: {
 		changePlay() {
+			/* 切换播放状态 */
 			this.$store.commit("setIsPlaying", !this.isPlaying);
 		},
 		reLoadingAudio() {
+			/* 点击进入audio */
 			this.$router.push("audio")
 			this.$store.commit("setIsShowFooter",false);
 			this.$store.commit("setIsShowAudio",false);

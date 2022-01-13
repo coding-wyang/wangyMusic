@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { songListGet } from "@/http/api.js";
-import U from "utils";
+import { discoveryInfoGet } from "@/http/api.js";
 
 export default {
 	data() {
@@ -44,7 +43,7 @@ export default {
 	methods: {
 		/* 获取精选歌曲数据 */
 		async getSongList(){
-			const {data:res} = await songListGet();
+			const {data:res} = await discoveryInfoGet();
 			this.title = res.blocks[2].uiElement.subTitle 
 			this.saveArray = [...res.blocks[2].creatives];
 			this.saveArray.forEach(element => {

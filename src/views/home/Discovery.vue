@@ -3,6 +3,8 @@
 		<discovery-header
 		backgroundColor="#ffffff">
 		</discovery-header>
+		<discovery-recommend>
+		</discovery-recommend>
 		<song-list>
 		</song-list>
 	</div>
@@ -11,6 +13,7 @@
 <script>
 import DiscoveryHeader from "@/components/DiscoveryHeader.vue";
 import SongList from "@/components/SongList.vue";
+import DiscoveryRecommend from "@/components/DiscoveryRecommend.vue";
 
 
 export default {
@@ -18,6 +21,7 @@ export default {
 	components:{
 		DiscoveryHeader,
 		SongList,
+		DiscoveryRecommend
 	},
 	data() {
 		return {

@@ -6,7 +6,7 @@ export const loginGet = (data) => {
   });
 };
 
-export const songListGet = (data) => {
+export const discoveryInfoGet = (data) => {
   return http.get("/homepage/block/page", {
     data: data,
   });
