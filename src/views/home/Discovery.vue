@@ -29,3 +29,10 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.discovery{
+	height: 1000px;
+}
+
+</style>
