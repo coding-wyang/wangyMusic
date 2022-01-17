@@ -1,40 +1,50 @@
 <template>
-<div class="song-box">
-	<div
+<div class="song-box" v-touch="onTouch">
+	<div class="songlist-title">
+		{{title}}
+	</div>
+	<!-- <div
         class="song-item"
         v-for="(item,index) in songList"
         :key="index"
 				@click="toPlay(item,artistsList[index],idList[index])"
-      >
+      > -->
         <!--歌曲-->
-        <div class="line-song">
+        <!-- <div class="line-song">
           <span>{{item}}</span>
-        </div>
+        </div> -->
 				<!-- 歌手 -->
-				<div class="line-artists">
+				<!-- <div class="line-artists">
 					<span>{{artistsList[index]}}</span>
-				</div>
+				</div> -->
         <!--三个点-->
-        <div class="line-icon">
+        <!-- <div class="line-icon">
           <i class="iconfont  icon-bofang"/>
         </div>
-    </div>
+    </div> -->
+		<el-carousel height="213px" indicator-position="none" :autoplay=false ref="hitCarousel">
+      <el-carousel-item v-for="(item,index) in 4" :key="item.index" >
+        <!-- <h3 class="small">{{ index }}</h3> -->
+				<hit-song :song-list="songPass" :index="index" @change ="(( index )=>{ change(index) })"></hit-song>
+      </el-carousel-item>
+    </el-carousel>
 </div>
 </template>
 
 <script>
 import { discoveryInfoGet } from "@/http/api.js";
+import HitSong from '../components/HitSong.vue'
 
 export default {
+	comments:{
+		HitSong,
+	},
 	data() {
 		return {
 			title: "",
-			saveArray: [],
-			listArray:[],
-			songList: [],
-			saveArtist: [],
-			artistsList: [],
+			songPass: [],//传递给子组件
 			idList: [],
+			
 		}
 	},
 	created() {
@@ -44,97 +54,39 @@ export default {
 		/* 获取精选歌曲数据 */
 		async getSongList(){
 			const {data:res} = await discoveryInfoGet();
-			this.title = res.blocks[2].uiElement.subTitle 
-			this.saveArray = [...res.blocks[2].creatives];
-			this.saveArray.forEach(element => {
-				this.saveArray = [...element.resources]
-				for (let value of this.saveArray){
-					let name = value.resourceExtInfo.song.name;
-					let artists = value.resourceExtInfo.artists;
-					let id = value.resourceId;
-					this.saveArtist.push(artists);
-					this.songList.push(name);
-					this.idList.push(id);
-				}
-			});
-			/* 拼接多个歌手情况下的字符 */
-			this.saveArtist.forEach((element) => {
-				this.saveArray = element;
-				var sum ='';
-				element.forEach((element,flag) => {
-					if ( flag === 0) {
-						sum = `${element.name}`
-					} else {
-						sum = `${sum}/${element.name}`
-					}
-				})
-				this.artistsList.push(sum);
-				sum='';
-			})
-			},
-			toPlay(songName, songArtist, id) {
-				this.$router.push('audio');
-				this.$store.commit("setSongName", songName);
-				this.$store.commit("setSongArtist", songArtist);
-				this.$store.commit("setSongId", id);
-				this.$store.commit("setIsPlaying", true);
-				/* this.$store.commit("setIsShowAudio","false") */
-				this.$store.commit("setIsShowFooter",false);
-				this.$store.commit("setIsShowAudio",false);
+			this.title = res.blocks[2].uiElement.subTitle.title 
+			this.songPass = [...res.blocks[2].creatives];
+			console.log(this.saveArray);
+				},
+			onTouch(e) {
+				if (e === 'left') {
+				this.$refs.hitCarousel.next();
+			}else if (e === "right") {
+				this.$refs.hitCarousel.prev();
 			}
-}}
+			}
+	},
+}
 </script>
 
 <style scoped>
-.song-box {
-  width: 100%;
-  position: relative;
-}
-.song-item {
-  height: 50px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-grow: 1;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e3e4e5;
-}
-
-.line-icon{
-	width: 50px;
-  height: 50px;
-  text-align: center;
-  color: #a1a2a2;
-  line-height: 60px;
-}
-.line-icon >i{
-	font-size: 1.5em;
-}
-.line-artists{
-	width: 30%;
-	font-family: sans-serif;
-	display: flex;
-  flex-direction: column;
-	justify-content: center;
-	padding-left: 20px;
-  display: flex;
+.song-box{
+	position: relative;
+	top: -5px;
+	height:  235px;
+	padding-block-end: 0px;
+	border-bottom: 6px solid rgb(223, 223, 223);
 	overflow: hidden;
-	font-size: 0.5em;
-	word-break:keep-all;
-	white-space:nowrap;/* 让文字再一行显示 */
-}
-.line-song{
 
-	width: 80%;
-  height: 50px;
-  overflow: hidden;/* 多余隐藏 */
-	font-size: 0.8em;
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-	padding: 10px;
 }
+.songlist-title{
+	position: relative;
+	height: 15px;
+	left: 10px;
+	top: 13px;
+	font-weight: 700;
+	padding: 0;
+
+}
+
 </style>
