@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import LoginDialogVue from './LoginDialog.vue';
 
 
 export default {
@@ -38,6 +39,7 @@ export default {
 		return {
 			sonArray: [],
 			saveArray: [],
+			playingList: [],
 			artistsList: [],
 			count: 0,
 			hitTitle: "hit-title",
@@ -51,16 +53,23 @@ export default {
 	},
 	watch:{
 		songListSave(val) {
+			console.log(val);
 			val.forEach(element => {
 				this.sonArray.push(element.resources)
 				this.formatArtist(element.resources)
+				element.resources.forEach((element) => {
+					this.playingList.push({
+						name: element.resourceExtInfo.song.name,
+						artists: element.resourceExtInfo.artists,
+						id: element.resourceId
+					})
+				})
 			});
 		},
 	},
 	methods: {
 		/* 拼接多个歌手情况下的字符 */
 		formatArtist(value) {
-			/* this.saveArray.splice(0,3) */
 			value.forEach((element) => {
 				var sum = '';
 				element.resourceExtInfo.artists.forEach((element,flag) => {
@@ -72,7 +81,6 @@ export default {
 				})
 				this.saveArray.push(sum);
 				this.count++;
-				console.log(this.saveArray);
 				if (this.count === 3 ) {
 					this.artistsList.push([...this.saveArray])
 					this.saveArray.splice(0,3)
@@ -89,6 +97,7 @@ export default {
 				this.$store.commit("setIsPlaying", true);
 				this.$store.commit("setIsShowFooter",false);
 				this.$store.commit("setIsShowAudio",false);
+				this.$store.commit("setPlayingList",this.playingList)
 			}
 	},
 }

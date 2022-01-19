@@ -18,13 +18,13 @@
 		<div class="method">
 			<i class="iconfont  icon-24gl-repeatOnce2"/>
 		</div>
-		<div class="prev">
+		<div class="prev" @click="toPrev()">
 			<i class="iconfont  icon-047caozuo_shangyishou"/>
 		</div>
 		<div class="play-pause" @click="startPlayPause">
 			<i :class="playIcon"/>
 		</div>
-		<div class="next">
+		<div class="next" @click="toNext()">
 			<i class="iconfont  icon-048caozuo_xiayishou"/>
 		</div>
 		<div class="more">
@@ -38,6 +38,7 @@
 import U from '../utils/index.js'
 export default {
 	name: 'playpause',
+	inject: ['reload'],
 	data() {
 		return {
 			playIcon: 'iconfont  icon-zanting',
@@ -58,8 +59,14 @@ export default {
 		maxTime() {
 			return  this.$store.state.playing.maxTime
 		},
-		currentTime(){
+		currentTime() {
 				return this.$store.state.playing.currentTime
+		},
+		playingList() {
+			return this.$store.state.playing.playingList
+		},
+		songId() {
+			return this.$store.state.playing.songId
 		},
 	},
 	watch: {
@@ -98,10 +105,33 @@ export default {
 
 	methods: {
     // 控制音频的播放与暂停
-    startPlayPause () {
+    startPlayPause() {
 			this.isPlaying =!this.isPlaying;
 			this.$store.commit("setIsPlaying",this.isPlaying);
     },
+		/* 下一首 */
+		toNext() {
+			const i = this.playingList.findIndex((value) =>value.id === this.songId) + 1;
+			if (i<=this.playingList.length) {
+				const nextValue = this.playingList.find((value,index)=>{
+				return index === i;
+			});
+			console.log(nextValue);
+			let saveArr = U.formatArtist([nextValue]);
+			this.toPlay(nextValue.name, saveArr[0], nextValue.id)
+			}
+		},
+		/* 上一首 */
+		toPrev() {
+			const i = this.playingList.findIndex((value) =>value.id === this.songId) - 1;
+			if (i >= 0) {
+				const prevValue = this.playingList.find((value,index)=>{
+				return index === i;
+			});
+			let saveArr = U.formatArtist([prevValue]);
+			this.toPlay(prevValue.name, saveArr[0], prevValue.id)
+			}
+		},
 		/* 将时间解析为时分秒 */
 		formatSeconds(time) {
 			if (time !== undefined) {
@@ -116,11 +146,20 @@ export default {
 				};
 		},
 		/* 二次进入页面更新 */
-		updateStuff(){
+		updateStuff() {
 			this.isPlaying = this.$store.getters.isPlaying;
 			this.timeSave = this.$store.getters.currentTime;
 			this.$store.commit("setCurrentTime",0);
 			this.$store.commit("setCurrentTime",this.timeSave);
+		},
+		toPlay(songName,songArtist,id) {
+			this.$store.commit("setSongName", songName);
+			this.$store.commit("setSongArtist", songArtist);
+			this.$store.commit("setSongId", id);
+			this.$store.commit("setIsPlaying", true);
+			/* this.$router.go(0); */
+			this.reload();
+			console.log(() =>{this.reload()});
 		}
   },
 }

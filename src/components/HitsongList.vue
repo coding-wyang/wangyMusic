@@ -24,7 +24,6 @@
     </div> -->
 		<el-carousel height="213px" indicator-position="none" :autoplay=false ref="hitCarousel">
       <el-carousel-item v-for="(item,index) in 4" :key="item.index" >
-        <!-- <h3 class="small">{{ index }}</h3> -->
 				<hit-song :song-list="songPass" :index="index" @change ="(( index )=>{ change(index) })"></hit-song>
       </el-carousel-item>
     </el-carousel>

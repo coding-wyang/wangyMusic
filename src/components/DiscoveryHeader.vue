@@ -4,7 +4,7 @@
 			<i class="iconfont  icon-gerenxinxi"/>
 		</div>
 		<div class="search" >
-      <input type="text" :placeholder="placeholder" />
+      <input type="text" :placeholder="placeholder" @click="toSearch"/>
       <div class="head-search">
 				<i class="iconfont  icon-sousuo"/>
       </div>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+
+import { searchDefaultGet } from '../http/api.js';
 export default {
 	name:'discovery-header',
 	data() {
@@ -23,7 +25,18 @@ export default {
 			placeholder: '搜索音乐、歌手',
 		}
 	},
-	
+	created() {
+		this.getDefaultKeyword();
+	},
+	methods: {
+		async getDefaultKeyword() {
+			const {data:res} = await searchDefaultGet();
+			this.placeholder = res.showKeyword;
+		},
+		toSearch() {
+			this.$router.push('search');
+		}
+	},
 }
 </script>
 

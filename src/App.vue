@@ -1,8 +1,6 @@
 <template>
 <div id='app'>
-	<keep-alive>
-	<router-view ></router-view>
-	</keep-alive>
+	<router-view v-if="isRouterAlive"></router-view>
 	<audio ref = "audio"
 		class="audio"
 		@pause="onPause"
@@ -20,8 +18,14 @@
 import AudioHeader from './components/AudioHeader.vue';
 import PageFooter from './components/PageFooter.vue';
 export default {
+	provide() {
+		return{
+			reload: this.reload,
+		}
+	},
 	data() {
 		return {
+			isRouterAlive: true,
 			currentTime: 0,
 			maxTime: 0,
 		}
@@ -86,6 +90,12 @@ export default {
 			/* 获取歌曲进度 */
       this.maxTime = parseInt(res.target.duration)
     },
+		reload() {
+			this.isRouterAlive = false;
+			this.$nextTick(()=>{
+				this.isRouterAlive = true;
+			})
+		}
 	}
 }
 </script>
