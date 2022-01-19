@@ -5,14 +5,14 @@
 		</discovery-header>
 		<discovery-recommend>
 		</discovery-recommend>
-		<song-list>
-		</song-list>
+		<hitsong-list>
+		</hitsong-list>
 	</div>
 </template>
 
 <script>
 import DiscoveryHeader from "@/components/DiscoveryHeader.vue";
-import SongList from "@/components/SongList.vue";
+import HitsongList from "@/components/HitsongList.vue";
 import DiscoveryRecommend from "@/components/DiscoveryRecommend.vue";
 
 
@@ -20,7 +20,7 @@ export default {
 	name:'Discovery',
 	components:{
 		DiscoveryHeader,
-		SongList,
+		HitsongList,
 		DiscoveryRecommend
 	},
 	data() {

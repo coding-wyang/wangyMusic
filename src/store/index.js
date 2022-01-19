@@ -15,9 +15,13 @@ const store = new Vuex.Store({
 			currentTime: 0,
 			isPlaying: '',
 			nowTime: '',
+			keyWord: '',
+			playingList:[],
 		}
 	},
 	getters: {
+		playingList: state => state.playing.playingList,
+		keyWord: state => state.playing.keyWord,
 		isShowFooter: state => state.playing.isShowFooter,
 		isPlaying: state => state.playing.isPlaying,
 		currentTime: state => state.playing.currentTime,
@@ -33,6 +37,8 @@ const store = new Vuex.Store({
 		songArtist: state => state.playing.songArtist,
 	},
 	mutations: {
+		setPlayingList: ( state, playingList ) => { state.playing.playingList = playingList},
+		setKeyWord: ( state, keyWord ) => { state.playing.keyWord = keyWord},
 		setIsShowFooter: ( state, isShowFooter ) => { state.playing.isShowFooter = isShowFooter},
 		setIsPlaying: ( state, isPlaying ) => { state.playing.isPlaying = isPlaying},
 		setCurrentTime: ( state, currentTime ) => { state.playing.currentTime = currentTime},

@@ -5,6 +5,7 @@ export const loginGet = (data) => {
     data: data,
   });
 };
+
 /* 发现页信息 */
 export const discoveryInfoGet = (data) => {
   return http.get("/homepage/block/page", {
@@ -23,3 +24,15 @@ export const lyricGet = (data) => {
     data: data,
   });
 };
+/* 默认搜索关键词 */
+export const searchDefaultGet = (data) => {
+	return http.get("/search/default",{
+		data: data,
+	});
+}
+/* 搜索页信息获取 */
+export const searchGet = (data) => {
+	return http.get("/search",{
+		data: data,
+	});
+}

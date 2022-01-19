@@ -55,7 +55,7 @@ export default {
 		},
 		reLoadingAudio() {
 			/* 点击进入audio */
-			this.$router.push("audio")
+			this.$router.push("/audio")
 			this.$store.commit("setIsShowFooter",false);
 			this.$store.commit("setIsShowAudio",false);
 			/* this.$parent.$parent.refs */
