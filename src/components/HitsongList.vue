@@ -55,7 +55,6 @@ export default {
 			const {data:res} = await discoveryInfoGet();
 			this.title = res.blocks[2].uiElement.subTitle.title 
 			this.songPass = [...res.blocks[2].creatives];
-			console.log(this.saveArray);
 				},
 			onTouch(e) {
 				if (e === 'left') {

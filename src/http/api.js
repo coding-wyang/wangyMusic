@@ -36,3 +36,15 @@ export const searchGet = (data) => {
 		data: data,
 	});
 }
+/* 热搜get */
+export const searchHotGet = (data) => {
+	return http.get("/search/hot/detail",{
+		data: data,
+	});
+}
+/* 搜索建议get */
+export const searchSugGet = (data) => {
+	return http.get("/search/suggest",{
+		data: data,
+	});
+}
