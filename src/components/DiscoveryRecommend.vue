@@ -1,6 +1,20 @@
 <template>
 <div class="recommend">
-	<div class="banner-box" v-touch="onTouch">
+	<!-- 懒加载骨架屏 -->
+	<el-skeleton style="
+	width: 100%;
+	padding-block: 8px;
+	padding-inline: 14px;"  
+	animated v-if="banners[0] === undefined">
+		<template #template>
+        <el-skeleton-item variant="image" style="
+				width: 93%;
+				height: 150px;
+				border-radius: 5px;
+				" />
+      </template>
+			</el-skeleton>
+	<div class="banner-box" v-touch="onTouch" v-if="banners[0] !== undefined">
 			<el-carousel  height="150px" ref='carousel'>
       <el-carousel-item v-for="(item,index) in banners" :key="item">
         <h3 class="small" @click="toAd(item.url)">
@@ -9,7 +23,30 @@
       </el-carousel-item>
     </el-carousel>
 	</div>
+	<!-- 圆形入口 -->
 	<div class="ball-box">
+		<!-- 骨架屏 -->
+		<el-skeleton style="
+			display:inline-block;
+			width: 50px;
+			height: 80px;
+			padding-inline: 13px;
+			text-align: center;
+			vertical-align: middle;
+			--el-skeleton-circle-size: 50px;" v-for="item in 9" animated v-if="banners[0] === undefined">
+		<template #template>
+        <el-skeleton-item  variant="circle" style="
+					width: 50px;
+					height: 30px;
+					padding-block: 10px;
+					border-radius: 40px;"/>
+				<el-skeleton-item variant="text" style="
+				width: 50px;
+				position: relative;
+				right: 49px;
+				top: 19px;"/>
+      </template>
+		</el-skeleton>
 		<div class='icon-line' v-for="(item,index) in ballIcon" :key="item.name">
 			<div class="bottom-color">
 				<img :src="item.iconUrl"/>
@@ -18,6 +55,25 @@
 		</div>
 	</div>
 	<div class='playlist-box'>
+		<!-- 骨架屏 -->
+		<el-skeleton style="
+			display:inline-block;
+			width: 110px;
+			padding-inline: 13px;
+			text-align: center;
+			vertical-align: middle;" v-for="item in 5" animated v-if="banners[0] === undefined">
+		<template #template>
+        <el-skeleton-item variant="image" style="
+				border-radius: 5px;
+				width: 110px;
+				height: 110px;
+				" />
+				<el-skeleton-item variant="text" style="
+				width: 100px;
+				position: relative;
+				top: 19px;"/>
+      </template>
+		</el-skeleton>
 		<p>推荐歌单</p>
 		<div class='img-line' v-for="(item,index) in playList" :key="item.creativeId">
 			<el-carousel height="120px" direction="vertical" :autoplay="true" indicator-position="none" v-if="index === 0"  @change="((index) => {change(index)})">
@@ -58,10 +114,9 @@ export default {
 	},
 	created() {
 		this.getRecommend();
-		
 	},
 	methods: {
-		async getRecommend(){
+		async getRecommend() {
 			const {data:res} = await discoveryInfoGet();
 			/* banner get */
 			this.banners = [...res.blocks[0].extInfo.banners];
@@ -145,7 +200,7 @@ export default {
 	display:inline-block;
 	width: 50px;
 	height: 80px;
-	padding-inline: 14px;
+	padding-inline: 13px;
 	text-align: center;
   vertical-align: middle;
 /* 	float: left;  不能使用,因为float里超过屏幕后会自动换行*/

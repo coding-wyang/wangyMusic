@@ -1,4 +1,22 @@
 <template>
+  <el-skeleton style="
+	position: relative;
+	top: 20px;
+	height: 50px;
+  width: 100%;
+	padding-block: 7px;"  
+	animated v-for="item in 3" v-if="sonArray[0] === undefined">
+		<template #template>
+        <el-skeleton-item  variant="image" style="
+				position: relative;
+				width: 50px;
+				height: 50px;
+				border-radius: 3px;
+				left: 12px;
+				top: -3px;
+				" />
+      </template>
+			</el-skeleton>
 	<div class= "hitsong-box" v-for="(item, i) in sonArray[index]"
 	@click="toPlay(item.uiElement.mainTitle.title, artistsList[index][i], item.resourceId)"
 	>
@@ -53,7 +71,6 @@ export default {
 	},
 	watch:{
 		songListSave(val) {
-			console.log(val);
 			val.forEach(element => {
 				this.sonArray.push(element.resources)
 				this.formatArtist(element.resources)
