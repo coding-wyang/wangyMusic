@@ -1,7 +1,9 @@
 <template>
+<!-- 搜索页 -->
 	<div class= "search-box">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
 		<div class= "header-box">
+			<!-- ios端的search效果必须以表单的方式 -->
 			<form @submit.prevent="false" action="#">
 					<input type="search" v-model="keyWords" autofocus="autofocus" @keyup="enterSearch($event)" :placeholder="placeholder"/>
 			</form>
@@ -73,7 +75,8 @@ export default {
 			const {data: data} = await searchDefaultGet();
 			this.placeholder = data.showKeyword;
 			const {data: hot} = await searchHotGet();
-			this.hotList = [...hot]
+			this.hotList = [...hot];
+			console.log("this.hotlist：：：",this.hotList);
 		},
 		/* 获取单曲 */
 		async enterSearch(event) {
@@ -152,7 +155,7 @@ export default {
 	
 }
 .hot-index >p{
-	line-height: 47px;
+	line-height: 38px;
 
 }
 .hot-info{

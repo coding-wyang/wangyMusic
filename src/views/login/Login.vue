@@ -1,8 +1,11 @@
 <template>
+<!-- 登录页 -->
   <div class="contain">
+		<!-- 网易云logo -->
 		<img class="logo" src="@/assets/musicLogo.png" alt="logo">
 		<div class="buttonCon">
 		<el-button  class="button" @click="showLoginDialog()">登录</el-button>
+		<!-- 子组件：登录页具体信息 -->
 		<login-dialog :dialogFlag="dialogVisible" @closeDia="closeDia"></login-dialog>
 		</div>
 	</div>
@@ -18,7 +21,8 @@ export default {
 		},
 	data() {
 		return {
-			dialogVisible: false,
+			dialogVisible: false,//控制窗口显示
+			/* 登陆表单 */
 			loginForm: {
 				userName: '',
 				number: ''

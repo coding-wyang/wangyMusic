@@ -1,7 +1,4 @@
-import deepCopy from "./deepCopy.js";
-import sessionSave from "./sessionSave.js";
-import formatArtist from "./formatArtist.js";
+import sessionSave from './sessionSave';
+import formatArtist from './formatArtist';
 
-
-
-export default { deepCopy, sessionSave, formatArtist};
+export default { sessionSave, formatArtist };

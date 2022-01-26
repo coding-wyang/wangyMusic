@@ -20,7 +20,7 @@ export default {
   components: { AudioHeader, PlayPause, AudioLyric },
 	data() {
 		return {
-			isShowAudio: true,
+			isShowAudio: true,//控制播放器的显示与隐藏
 		}
 	},
 	created() {
