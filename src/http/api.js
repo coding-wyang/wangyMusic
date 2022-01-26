@@ -1,50 +1,34 @@
-import http from "./index.js";
+import http from './index';
 /* 登录信息 */
-export const loginGet = (data) => {
-  return http.get("/login/cellphone", {
-    data: data,
-  });
-};
+export const loginGet = (data) => http.get('/login/cellphone', {
+  data,
+});
 
 /* 发现页信息 */
-export const discoveryInfoGet = (data) => {
-  return http.get("/homepage/block/page", {
-    data: data,
-  });
-};
+export const discoveryInfoGet = (data) => http.get('/homepage/block/page', {
+  data,
+});
 /* 发现页入口 */
-export const discoveryBallIconGet = (data) => {
-  return http.get("/homepage/dragon/ball", {
-    data: data,
-  });
-};
+export const discoveryBallIconGet = (data) => http.get('/homepage/dragon/ball', {
+  data,
+});
 /* 歌词获取 */
-export const lyricGet = (data) => {
-  return http.get("/lyric", {
-    data: data,
-  });
-};
+export const lyricGet = (data) => http.get('/lyric', {
+  data,
+});
 /* 默认搜索关键词 */
-export const searchDefaultGet = (data) => {
-	return http.get("/search/default",{
-		data: data,
-	});
-}
+export const searchDefaultGet = (data) => http.get('/search/default', {
+  data,
+});
 /* 搜索页信息获取 */
-export const searchGet = (data) => {
-	return http.get("/search",{
-		data: data,
-	});
-}
+export const searchGet = (data) => http.get('/search', {
+  data,
+});
 /* 热搜get */
-export const searchHotGet = (data) => {
-	return http.get("/search/hot/detail",{
-		data: data,
-	});
-}
+export const searchHotGet = (data) => http.get('/search/hot/detail', {
+  data,
+});
 /* 搜索建议get */
-export const searchSugGet = (data) => {
-	return http.get("/search/suggest",{
-		data: data,
-	});
-}
+export const searchSugGet = (data) => http.get('/search/suggest', {
+  data,
+});

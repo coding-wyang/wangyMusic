@@ -1,0 +1,14 @@
+// settings.json
+{
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+			"source.fixAll": true,
+			"source.fixAll.eslint": true
+	},
+	"[json]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"vetur.validation.template": false,
+	"prettier.useTabs": false, // 缩进不使用tab，使用空格
+	"prettier.tabWidth": 2, // 缩进字节数
+}

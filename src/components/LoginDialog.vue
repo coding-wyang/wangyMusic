@@ -1,135 +1,135 @@
 <template>
-  <el-dialog 
-    title="登录"
-		custom-class="dialog"
-    v-model="dialogFlag"
-    :close-on-click-model="false"
-    :before-close="loginDiaClose"
-    :destroy-on-close="true"
-    width="100%"
-  >
+  <!-- 登录会话页面 -->
+  <el-dialog title="登录" custom-class="dialog" v-model="dialogFlag" :close-on-click-model="false" :before-close="loginDiaClose" :destroy-on-close="true" width="100%">
     <!-- 登录表单区域 -->
-    <el-form :model="loginForm" status-icon :rules="loginFormRules" ref="loginFormRef" >
+    <el-form :model="loginForm" status-icon :rules="loginFormRules" ref="loginFormRef">
       <el-form-item label="账号" prop="userName" label-width="60px" class="username">
         <el-input v-model="loginForm.userName"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="userPassword" label-width="60px" class="password">
-        <el-input v-model="loginForm.userPassword" :type="pwdType" ></el-input>
-				<div class="active-eye" @click="changeType()">
-					<i :class="src"/>
-				</div>
+        <el-input v-model="loginForm.userPassword" :type="pwdType"></el-input>
+        <!-- 密码隐藏与否 -->
+        <div class="active-eye" @click="changeType()">
+          <i :class="src" />
+        </div>
       </el-form-item>
     </el-form>
-    <el-button type="danger" class="buttonDia" @click="userInfGet()"
-      >确认</el-button>
-			<el-button class="buttonReset" @click="resetForm()">重置</el-button>
+    <el-button type="danger" class="buttonDia" @click="userInfGet()">确认</el-button>
+    <el-button class="buttonReset" @click="resetForm()">重置</el-button>
   </el-dialog>
 </template>
 
 <script>
-import { loginGet } from "@/http/api.js";
+import { loginGet } from '../http/api';
+
 export default {
-  name: "LoginDialog",
+  name: 'LoginDialog',
   props: {
     dialogFlag: Boolean,
   },
-  emits: ["closeDia"],
+  emits: ['closeDia'], // 关闭事件
   data() {
     return {
-				pwdType:"password",
-				src:"iconfont  icon-yincang",
+      pwdType: 'password', // 控制密码输入的类型 默认值为密码
+      src: 'iconfont  icon-yincang', // 动态控制眼睛睁闭icon 默认值为闭眼
       loginForm: {
-        userName: "15877532644",
-        userPassword: "sB250...",
+        userName: '15877532644',
+        userPassword: 'sB250...',
       },
-			loginFormRules:{
-            //用户名和密码表单验证
-          userName:[ 
-            { required: true, message: '请输入账号', trigger: 'blur' },
-          ],
-					userPassword: [
-						{ required: true, message: '请输入密码', trigger: 'blur' },
-            { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
-            ],
-        }
+      loginFormRules: {
+        // 用户名和密码表单验证
+        userName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        userPassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 6,
+            max: 20,
+            message: '长度在 6 到 20 个字符',
+            trigger: 'blur',
+          },
+        ],
+      },
     };
   },
-	watch:{
-		pwdType(val){
-			if (val === 'password') {
-				this.src = "iconfont  icon-yincang"
-			} else if(val === 'text') {
-				this.src = 'iconfont icon-xianshi'
-			}
-		}
-	},
-  methods: {
-		/* 控制密码显示隐藏 */
-		changeType(){
-			this.pwdType = this.pwdType==='password'?'text':'password';
-			},
-    loginDiaClose() {
-      this.$emit("closeDia");
-			this.$refs.loginFormRef.resetFields();//重置表单数据
+  watch: {
+    /* 监听密码类型的变化 */
+    pwdType(val) {
+      if (val === 'password') {
+        this.src = 'iconfont  icon-yincang';
+      } else if (val === 'text') {
+        this.src = 'iconfont icon-xianshi';
+      }
     },
-		resetForm() {
-			this.$refs.loginFormRef.resetFields();
-		},
+  },
+  methods: {
+    /* 控制密码显示隐藏 */
+    changeType() {
+      this.pwdType = this.pwdType === 'password' ? 'text' : 'password';
+    },
+    loginDiaClose() {
+      this.$emit('closeDia');
+      this.$refs.loginFormRef.resetFields(); // 重置表单数据
+    },
+    resetForm() {
+      this.$refs.loginFormRef.resetFields();
+    },
     userInfGet() {
-			/* 用户信息获取 */
-        loginGet({ phone: this.loginForm.userName, password: this.loginForm.userPassword }).then((res) => {
+      /* 用户信息获取 */
+      loginGet({
+        phone: this.loginForm.userName,
+        password: this.loginForm.userPassword,
+      })
+        .then((res) => {
           console.log(res);
-					if (res.code === 200){
-						this.$router.push('discovery')
-						this.$store.commit("setIsShowFooter","true")
-					}else {
-							ElMessage.error({
-							message: "登录失败",
-							duration: 0,
-							offset: 10,
-						})
-					}
-        }).catch((error) => {
-						}
-				);
+          if (res.code === 200) {
+            this.$router.push('discovery');
+            this.$store.commit('setIsShowFooter', 'true');
+          } else {
+            ElMessage.error({
+              message: '登录失败',
+              duration: 0,
+              offset: 10,
+            });
+          }
+        });
     },
   },
 };
 </script>
 
 <style lang="scss">
-.el-message{
-	position: absolute;
-	padding-inline-start: 50px;
-	background: white;
+.el-message {
+  position: absolute;
+  padding-inline-start: 50px;
+  background: white;
 }
-.el-message__icon{
-	background: #ffff;
+.el-message__icon {
+  background: #ffff;
 }
 .el-message__content {
-	font-weight: 600;
-	position: absolute;
-	left: 40%;
+  font-weight: 600;
+  position: absolute;
+  left: 40%;
 }
-.el-icon .icon{
-	visibility: hidden;
-} 
-.dialog{
-		/* line-height: 30rpx; */
-		position: fixed;
-		top: -200px;
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		background: rgb(253, 253, 253);
-		margin: 200px auto;
+.el-icon .icon {
+  visibility: hidden;
 }
-.password{
-	position: relative;
+.dialog {
+  /* line-height: 30rpx; */
+  position: fixed;
+  top: -200px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgb(253, 253, 253);
+  margin: 200px auto;
 }
-.active-eye{
-	position: relative;
-	left: 83%;
-	bottom: 32px;
+.password {
+  position: relative;
+}
+.active-eye {
+  position: relative;
+  left: 83%;
+  bottom: 32px;
 }
 </style>
